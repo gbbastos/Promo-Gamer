@@ -1,4 +1,4 @@
-# GameDeals API
+# PromoGamer API
 
 A REST API that aggregates free games and deals from **Epic Games**, **Steam**, and **GOG** — updated automatically every 6 hours.
 
@@ -36,8 +36,8 @@ Built with **Python**, **FastAPI**, and **MongoDB Atlas**.
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/gamedeals-api.git
-cd gamedeals-api
+git clone https://github.com/gbbastos/PromoGamer.git
+cd PromoGamer
 
 python -m venv venv
 venv\Scripts\activate        # Windows

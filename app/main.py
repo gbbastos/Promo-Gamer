@@ -10,7 +10,7 @@ from app.scrapers.gog import scrape_gog
 from datetime import datetime
 
 app = FastAPI(
-    title="GameDeals API",
+    title="PromoGamer API",
     description="Aggregates free games and deals from Epic Games, Steam, and GOG.",
     version="1.0.0",
 )
@@ -72,7 +72,7 @@ app.mount("/ui", StaticFiles(directory="frontend", html=True), name="frontend")
 @app.get("/")
 def root():
     return {
-        "message": "GameDeals API is running.",
+        "message": "PromoGamer API is running.",
         "endpoints": {
             "all deals": "/deals/",
             "free games": "/deals/free",

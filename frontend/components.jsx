@@ -36,7 +36,7 @@ function GameArt({ game, aspect = "portrait" }) {
 }
 
 // ===== Logo =====
-function GameDealsLogo() {
+function PromoGamerLogo() {
   return (
     <div className="gd-logo-mark">
       <svg viewBox="0 0 38 38" width="38" height="38">
@@ -70,8 +70,8 @@ function Header({ totalDeals, loading }) {
     <header className="gd-header">
       <div className="gd-header-inner">
         <a className="gd-logo" href="#">
-          <GameDealsLogo />
-          <div className="gd-logo-text">GameDeals</div>
+          <PromoGamerLogo />
+          <div className="gd-logo-text">PromoGamer</div>
         </a>
         <div className="gd-tagline">
           Free games &amp; deals from <b>Epic</b>, <b>Steam</b> and <b>GOG</b>
