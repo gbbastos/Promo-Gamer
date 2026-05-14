@@ -1,7 +1,6 @@
 ﻿from fastapi import APIRouter, Query
 from typing import Optional
 from app.database import deals_collection
-from bson import ObjectId
 
 router = APIRouter(prefix="/deals", tags=["deals"])
 

@@ -1,4 +1,5 @@
-﻿from fastapi import FastAPI
+﻿from contextlib import asynccontextmanager
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -8,21 +9,6 @@ from app.scrapers.epic import scrape_epic
 from app.scrapers.steam import scrape_steam
 from app.scrapers.gog import scrape_gog
 from datetime import datetime
-
-app = FastAPI(
-    title="PromoGamer API",
-    description="Aggregates free games and deals from Epic Games, Steam, and GOG.",
-    version="1.0.0",
-)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["GET"],
-    allow_headers=["*"],
-)
-
-app.include_router(deals_router)
 
 scheduler = BackgroundScheduler()
 
@@ -52,19 +38,32 @@ def run_all_scrapers():
     print(f"[Done] Total: {total} deals in DB.")
 
 
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     print("Running scrapers on startup...")
     run_all_scrapers()
     scheduler.add_job(run_all_scrapers, "interval", hours=6, id="scraper_job")
     scheduler.start()
     print("Scheduler started — scrapers will run every 6 hours.")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
+    yield
     scheduler.shutdown()
 
+
+app = FastAPI(
+    title="PromoGamer API",
+    description="Aggregates free games and deals from Epic Games, Steam, and GOG.",
+    version="1.0.0",
+    lifespan=lifespan,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
+
+app.include_router(deals_router)
 
 app.mount("/ui", StaticFiles(directory="frontend", html=True), name="frontend")
 
