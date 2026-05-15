@@ -45,7 +45,7 @@ window.transformDeal = function(deal, idx) {
     url: deal.url || "#",
     image_url: deal.image_url || null,
     endsAt: deal.end_date || new Date(Date.now() + 7 * 86400000).toISOString(),
-    tags: [],
+    tags: [deal.type || "deal"],
     palette: PALETTES[h % PALETTES.length],
     motif: MOTIFS[h % MOTIFS.length],
   };

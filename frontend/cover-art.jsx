@@ -118,8 +118,6 @@ function CoverArt({ game, aspect = "portrait" }) {
   const c = game.palette;
   const motif = motifPaths[game.motif] || motifPaths.eye;
   const id = `g-${game.id}`;
-  const w = aspect === "wide" ? 480 : 300;
-  const h = aspect === "wide" ? 270 : 360;
   return (
     <svg viewBox="0 0 300 360" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" style={{ display: "block", width: "100%", height: "100%" }}>
       <defs>
